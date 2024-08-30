@@ -11,7 +11,7 @@ PREFIX dct: <http://purl.org/dc/terms/>
   a [sio:SIO_000115] ; # sio:identifier
   a [obo:IAO_0020000] ; # obo:identifier
   dct:description xsd:string? ; # "An object for which a GA4GH computed identifier can be created." ;
-  sio:SIO_000300 [xsd:string '^[0-9A-Za-z_\-]{32}$'] 
+  sio:SIO_000300 /^[0-9A-Za-z_\-]{32}$/ 
 } 
 
 # Variation
