@@ -1,0 +1,1 @@
+# GA4GH VRS RDF Schema

@@ -1,0 +1,61 @@
+PREFIX : <http://purl.org/ejp-rd/vrs-rdf-schema/v200/shex/>
+PREFIX ga4gh: <https://w3id.org/ga4gh/schema/vrs/2.x/vrs-source.yaml#/>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX sio: <http://semanticscience.org/resource/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+# Ga4ghIdentifiableObject
+:idShape IRI { 
+  a [sio:SIO_000115] ; # sio:identifier
+  a [obo:IAO_0020000] ; # obo:identifier
+  dct:description xsd:string? ; # "An object for which a GA4GH computed identifier can be created." ;
+  sio:SIO_000300 [xsd:string '^[0-9A-Za-z_\-]{32}$'] 
+} 
+
+# Variation
+:variationShape extends @:idShape IRI {
+  a [sio:SIO_000015] ; # sio:ice
+  a [obo:NCIT_C17248] ; # obo:GeneticVariation
+  a [ga4gh:MolecularVariation ga4gh:SystemicVariation] ;
+  a [gvo:Variation]? ; 
+  dct:description xsd:string? ; # "A representation of the state of one or more biomolecules." ;
+  sio:SIO_000008 @:expressionShape* 
+}
+
+# Expression
+:expressionShape IRI {
+  a [sio:SIO_000015] ; # sio:ice
+  a [obo:~] OR IRI ; # obo class it refers to syntax, e.g., [NCIT_C198546 (HGVS code), NCIT_C43706 (OMIM number), NCIT_C100094 (HGNC ID), NCIT_C173278 (iscn)] 
+  dct:description xds:string? ; # "Representation of a variation by a specified nomenclature or syntax for a Variation object. E.g. HGVS"
+  rdfs:label xsd:string ; # syntax
+  sio:SIO_000300 xsd:string ; # sio:has-value HGVS_code value
+  dct:hasVersion xsd:string? . # version
+}
+
+# MolecularVariation
+:molecularVariationShape extends @:variationShape IRI {
+  a [sio:SIO_000015] ; # sio:ice
+  a [obo:NCIT_C3910] ; # obo:Molecular-Abnormality
+  a [ga4gh:Allele ga4gh:CisPhasedBlock ga4gh:Adjacency ga4gh:Terminus ga4gh:DerivativeMolecule] ;
+  dct:description xsd:string? . # "A :ref:`variation` on a contiguous molecule."
+}
+
+# Allele
+:alleleShape extends @:molecularVariationShape IRI {
+  a [sio:SIO_000015] ; # sio:ice
+  a [obo:NCIT_C16277] ; # obo:Allele
+  a [ga4gh:Allele] ;
+  dct:description xsd:string? . # "     The state of a molecule at a :ref:`Location`."
+  sio:SIO_000008 @:locationShape ; # sio:has-attribute location 
+  sio:SIO_000008 @:stateShape . # sio:has-attribute state
+}
+
+# SystemicVariation 
+:systemicVariationShape extends @:variationShape IRI {
+  a [sio:SIO_000015] ; # sio:ice
+  a [obo:NCIT_C17004] ; # obo:GeneticPolymorphism
+  a [ga4gh:CopyNumberCount ga4gh:CopyNumberChange] ;
+  dct:description xsd:string? . # "A Variation of multiple molecules in the context of a system"
+}
