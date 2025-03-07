@@ -17,7 +17,7 @@ PREFIX gvo: <http://genome-variation.org/resource/gvo#>
 
 # Variation
 :variationShape extends @:idShape IRI {
-  a [sio:SIO_000015] ; # sio:ice
+  a [sio:SIO_000015] ; # sio:ice (information content entity)
   a [obo:NCIT_C17248] ; # obo:GeneticVariation
   a [ga4gh:MolecularVariation ga4gh:SystemicVariation] ;
   a [gvo:Variation]? ; 
