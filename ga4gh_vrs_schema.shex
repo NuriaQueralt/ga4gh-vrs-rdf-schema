@@ -39,6 +39,7 @@ PREFIX gvo: <http://genome-variation.org/resource/gvo#>
 :molecularVariationShape extends @:variationShape IRI {
   a [sio:SIO_000015] ; # sio:ice
   a [obo:NCIT_C3910] ; # obo:Molecular-Abnormality
+  a [ga4gh:MolecularVariation] ;
   a [ga4gh:Allele ga4gh:CisPhasedBlock ga4gh:Adjacency ga4gh:Terminus ga4gh:DerivativeMolecule] ;
   dct:description xsd:string? . # "A :ref:`variation` on a contiguous molecule."
 }
@@ -57,6 +58,7 @@ PREFIX gvo: <http://genome-variation.org/resource/gvo#>
 :systemicVariationShape extends @:variationShape IRI {
   a [sio:SIO_000015] ; # sio:ice
   a [obo:NCIT_C17004] ; # obo:GeneticPolymorphism
+  a [ga4gh:SystemicVariation] ;
   a [ga4gh:CopyNumberCount ga4gh:CopyNumberChange] ;
   dct:description xsd:string? . # "A Variation of multiple molecules in the context of a system"
 }
