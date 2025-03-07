@@ -7,6 +7,10 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dct: <http://purl.org/dc/terms/>
 PREFIX gvo: <http://genome-variation.org/resource/gvo#>
 
+# =============================================================================
+# Kinds of Variation
+# =============================================================================
+
 # Ga4ghIdentifiableObject
 :idShape IRI { 
   a [sio:SIO_000115] ; # sio:identifier
@@ -44,6 +48,24 @@ PREFIX gvo: <http://genome-variation.org/resource/gvo#>
   dct:description xsd:string? . # "A :ref:`variation` on a contiguous molecule."
 }
 
+# SystemicVariation 
+:systemicVariationShape extends @:variationShape IRI {
+  a [sio:SIO_000015] ; # sio:ice
+  a [obo:NCIT_C17004] ; # obo:GeneticPolymorphism
+  a [ga4gh:SystemicVariation] ;
+  a [ga4gh:CopyNumberCount ga4gh:CopyNumberChange] ;
+  dct:description xsd:string? . # "A Variation of multiple molecules in the context of a system"
+}
+
+
+# =============================================================================
+# IDENTIFIABLE TYPES
+# Have a `type` and `_id` attribute
+# =============================================================================
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Molecular Variation
+
 # Allele
 :alleleShape extends @:molecularVariationShape IRI {
   a [sio:SIO_000015] ; # sio:ice
@@ -54,11 +76,12 @@ PREFIX gvo: <http://genome-variation.org/resource/gvo#>
   sio:SIO_000008 @:stateShape . # sio:has-attribute state
 }
 
-# SystemicVariation 
-:systemicVariationShape extends @:variationShape IRI {
-  a [sio:SIO_000015] ; # sio:ice
-  a [obo:NCIT_C17004] ; # obo:GeneticPolymorphism
-  a [ga4gh:SystemicVariation] ;
-  a [ga4gh:CopyNumberCount ga4gh:CopyNumberChange] ;
-  dct:description xsd:string? . # "A Variation of multiple molecules in the context of a system"
+:locationShape IRI {
+  a
+  dct:description xsd:string? .
+}
+
+:stateShape IRI {
+  a
+  dct:description xsd:string? .
 }
